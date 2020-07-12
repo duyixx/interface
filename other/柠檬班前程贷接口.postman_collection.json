@@ -1,0 +1,847 @@
+{
+	"info": {
+		"_postman_id": "f2b1b0d5-b5d2-4a53-ab19-66bfbe67b167",
+		"name": "上课V2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "用户模块",
+			"item": [
+				{
+					"name": "注册接口",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Lemonban-Media-Type",
+								"value": "lemonban.v2",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"mobile_phone\":\"13367899876\",\n\t\"pwd\":\"lemonban\"\n}"
+						},
+						"url": {
+							"raw": "http://api.lemonban.com/futureloan/member/register",
+							"protocol": "http",
+							"host": [
+								"api",
+								"lemonban",
+								"com"
+							],
+							"path": [
+								"futureloan",
+								"member",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "登录接口",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0e4707eb-f5cb-4c22-9761-fc922ffc4558",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"var token = jsonData.data.token_info.token;",
+									"pm.environment.set(\"token\",token);",
+									"pm.environment.set(\"member_id\",jsonData.data.id);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Lemonban-Media-Type",
+								"value": "lemonban.v2",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"mobile_phone\":\"13367899876\",\n\t\"pwd\":\"lemonban\"\n}"
+						},
+						"url": {
+							"raw": "http://api.lemonban.com/futureloan/member/login",
+							"protocol": "http",
+							"host": [
+								"api",
+								"lemonban",
+								"com"
+							],
+							"path": [
+								"futureloan",
+								"member",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "充值接口",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Lemonban-Media-Type",
+								"value": "lemonban.v2",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"member_id\":{{member_id}},\n\t\"amount\":2000\n}"
+						},
+						"url": {
+							"raw": "http://api.lemonban.com/futureloan/member/recharge",
+							"protocol": "http",
+							"host": [
+								"api",
+								"lemonban",
+								"com"
+							],
+							"path": [
+								"futureloan",
+								"member",
+								"recharge"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "提现接口",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Lemonban-Media-Type",
+								"type": "text",
+								"value": "lemonban.v2"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"member_id\":{{member_id}},\n\t\"amount\":2000\n}"
+						},
+						"url": {
+							"raw": "http://api.lemonban.com/futureloan/member/withdraw",
+							"protocol": "http",
+							"host": [
+								"api",
+								"lemonban",
+								"com"
+							],
+							"path": [
+								"futureloan",
+								"member",
+								"withdraw"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "更新昵称",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "X-Lemonban-Media-Type",
+								"value": "lemonban.v2",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"member_id\": {{member_id}},\n    \"reg_name\": \"小柠檬666\"\n}"
+						},
+						"url": {
+							"raw": "http://api.lemonban.com/futureloan/member/update",
+							"protocol": "http",
+							"host": [
+								"api",
+								"lemonban",
+								"com"
+							],
+							"path": [
+								"futureloan",
+								"member",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "投资",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Lemonban-Media-Type",
+								"value": "lemonban.v2",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"member_id\": {{member_id}},\n    \"loan_id\": 6024,\n    \"amount\": 200\n}"
+						},
+						"url": {
+							"raw": "http://api.lemonban.com/futureloan/member/invest",
+							"protocol": "http",
+							"host": [
+								"api",
+								"lemonban",
+								"com"
+							],
+							"path": [
+								"futureloan",
+								"member",
+								"invest"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "用户信息",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Lemonban-Media-Type",
+								"value": "lemonban.v2",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://api.lemonban.com/futureloan/member/{{member_id}}/info",
+							"protocol": "http",
+							"host": [
+								"api",
+								"lemonban",
+								"com"
+							],
+							"path": [
+								"futureloan",
+								"member",
+								"{{member_id}}",
+								"info"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "用户模块 Copy",
+			"item": [
+				{
+					"name": "注册接口",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Lemonban-Media-Type",
+								"value": "lemonban.v2",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"mobile_phone\":\"13367899876\",\n\t\"pwd\":\"lemonban\"\n}"
+						},
+						"url": {
+							"raw": "http://api.lemonban.com/futureloan/member/register",
+							"protocol": "http",
+							"host": [
+								"api",
+								"lemonban",
+								"com"
+							],
+							"path": [
+								"futureloan",
+								"member",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "登录接口",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0e4707eb-f5cb-4c22-9761-fc922ffc4558",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"var token = jsonData.data.token_info.token;",
+									"pm.environment.set(\"token\",token);",
+									"pm.environment.set(\"member_id\",jsonData.data.id);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Lemonban-Media-Type",
+								"value": "lemonban.v2",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"mobile_phone\":\"13367899876\",\n\t\"pwd\":\"lemonban\"\n}"
+						},
+						"url": {
+							"raw": "http://api.lemonban.com/futureloan/member/login",
+							"protocol": "http",
+							"host": [
+								"api",
+								"lemonban",
+								"com"
+							],
+							"path": [
+								"futureloan",
+								"member",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "充值接口",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Lemonban-Media-Type",
+								"value": "lemonban.v2",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"member_id\":{{member_id}},\n\t\"amount\":2000\n}"
+						},
+						"url": {
+							"raw": "http://api.lemonban.com/futureloan/member/recharge",
+							"protocol": "http",
+							"host": [
+								"api",
+								"lemonban",
+								"com"
+							],
+							"path": [
+								"futureloan",
+								"member",
+								"recharge"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "提现接口",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Lemonban-Media-Type",
+								"type": "text",
+								"value": "lemonban.v2"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"member_id\":{{member_id}},\n\t\"amount\":2000\n}"
+						},
+						"url": {
+							"raw": "http://api.lemonban.com/futureloan/member/withdraw",
+							"protocol": "http",
+							"host": [
+								"api",
+								"lemonban",
+								"com"
+							],
+							"path": [
+								"futureloan",
+								"member",
+								"withdraw"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "更新昵称",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "X-Lemonban-Media-Type",
+								"value": "lemonban.v2",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"member_id\": {{member_id}},\n    \"reg_name\": \"小柠檬666\"\n}"
+						},
+						"url": {
+							"raw": "http://api.lemonban.com/futureloan/member/update",
+							"protocol": "http",
+							"host": [
+								"api",
+								"lemonban",
+								"com"
+							],
+							"path": [
+								"futureloan",
+								"member",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "投资",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Lemonban-Media-Type",
+								"value": "lemonban.v2",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"member_id\": {{member_id}},\n    \"loan_id\": 6024,\n    \"amount\": 200\n}"
+						},
+						"url": {
+							"raw": "http://api.lemonban.com/futureloan/member/invest",
+							"protocol": "http",
+							"host": [
+								"api",
+								"lemonban",
+								"com"
+							],
+							"path": [
+								"futureloan",
+								"member",
+								"invest"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "用户信息",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Lemonban-Media-Type",
+								"value": "lemonban.v2",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://api.lemonban.com/futureloan/member/{{member_id}}/info",
+							"protocol": "http",
+							"host": [
+								"api",
+								"lemonban",
+								"com"
+							],
+							"path": [
+								"futureloan",
+								"member",
+								"{{member_id}}",
+								"info"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "项目模块",
+			"item": [
+				{
+					"name": "新增项目",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d557d41a-84ab-4843-874b-cc8b170216ea",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.environment.set(\"loan_id\",jsonData.data.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Lemonban-Media-Type",
+								"type": "text",
+								"value": "lemonban.v2"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"member_id\": {{member_id}},\n    \"title\": \"世界这么大，借钱去看看\",\n    \"amount\": 2000.00,\n    \"loan_rate\": 18.0,\n    \"loan_term\": 6,\n    \"loan_date_type\": 1,\n    \"bidding_days\": 10\n}"
+						},
+						"url": {
+							"raw": "http://api.lemonban.com/futureloan/loan/add",
+							"protocol": "http",
+							"host": [
+								"api",
+								"lemonban",
+								"com"
+							],
+							"path": [
+								"futureloan",
+								"loan",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "项目审核",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "X-Lemonban-Media-Type",
+								"type": "text",
+								"value": "lemonban.v1"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"loan_id\": {{loan_id}},\n    \"approved_or_not\":true\n    \n\n}"
+						},
+						"url": {
+							"raw": "http://api.lemonban.com/futureloan/loan/audit",
+							"protocol": "http",
+							"host": [
+								"api",
+								"lemonban",
+								"com"
+							],
+							"path": [
+								"futureloan",
+								"loan",
+								"audit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "项目列表",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Lemonban-Media-Type",
+								"type": "text",
+								"value": "lemonban.v2"
+							}
+						],
+						"url": {
+							"raw": "http://api.lemonban.com/futureloan/loans?pageIndex=1&pageSize=20",
+							"protocol": "http",
+							"host": [
+								"api",
+								"lemonban",
+								"com"
+							],
+							"path": [
+								"futureloan",
+								"loans"
+							],
+							"query": [
+								{
+									"key": "pageIndex",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "20"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	]
+}

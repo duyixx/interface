@@ -1,0 +1,33 @@
+excel:
+  test_datafile: test_cases_data.xlsx
+
+logger:
+  logger_name: "logger"
+  logger_level: "INFO"
+  file_name: "logger.log"
+  file_level: "INFO"
+  stream_level: "ERROR"
+
+db:
+  host: "120.78.128.25"
+  port: 3306
+  user: "future"
+  password: "123456"
+  charset: 'utf8'
+#  database: None
+#  cursorclass: DictCursor # cursorclass不用yaml配置，因为会被解释为字符串
+
+user:
+  mobile_phone: "13610086110"
+  pwd: "lemonban"
+
+admin_user:
+  mobile_phone: "17777777777"
+  pwd: "12345678"
+
+invest_user:
+  mobile_phone: "17777777778"
+  pwd: "12345678"
+
+host: http://api.lemonban.com/futureloan
+
